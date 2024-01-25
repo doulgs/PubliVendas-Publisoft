@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "publivendas",
-    "slug": "publivendas",
+    "name": "publivenda",
+    "slug": "publivenda",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.doulgs.publiVendas"
+      "package": "com.doulgs.publiVendaPublisoft"
     },
     "web": {
       "favicon": "./assets/favicon.png"

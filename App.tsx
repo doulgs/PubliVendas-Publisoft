@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
+import RealmContextProvider from "./src/context/realmContext";
 import { StatusBar } from "expo-status-bar";
 
 import { ThemeProvider } from "styled-components/native";
@@ -14,15 +15,17 @@ import { AuthProvaider } from "./src/context/authContext";
 
 export default function App() {
   return (
-    <ThemeProvider theme={THEME}>
-      <NavigationContainer>
-        <PaperProvider>
-          <AuthProvaider>
-            <StatusBar style="auto" />
-            <Routes />
-          </AuthProvaider>
-        </PaperProvider>
-      </NavigationContainer>
-    </ThemeProvider>
+    <RealmContextProvider>
+      <ThemeProvider theme={THEME}>
+        <NavigationContainer>
+          <PaperProvider>
+            <AuthProvaider>
+              <StatusBar style="auto" />
+              <Routes />
+            </AuthProvaider>
+          </PaperProvider>
+        </NavigationContainer>
+      </ThemeProvider>
+    </RealmContextProvider>
   );
 }

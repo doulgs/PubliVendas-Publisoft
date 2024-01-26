@@ -1,6 +1,13 @@
 import * as Device from "expo-device";
 import DeviceInfo from "react-native-device-info";
 
+export interface InfoDispositivoProps {
+  uniqueId: string;
+  Modelo: string | null;
+  Plataforma: string | null;
+  Versao: string | null;
+}
+
 const obterInfoDispositivo = async () => {
   try {
     const uniqueId = await DeviceInfo.getUniqueId();
@@ -8,14 +15,14 @@ const obterInfoDispositivo = async () => {
     const Modelo = Device.modelName;
     const Versao = Device.osVersion;
 
-    return {
-      infoDispositivo: {
-        uniqueId,
-        Plataforma,
-        Modelo,
-        Versao,
-      },
+    const infoDispositivo: InfoDispositivoProps = {
+      uniqueId,
+      Plataforma,
+      Modelo,
+      Versao,
     };
+
+    return { infoDispositivo };
   } catch (error) {
     console.error("Erro ao obter informações do dispositivo:", error);
     return {

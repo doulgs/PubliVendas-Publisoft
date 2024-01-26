@@ -1,14 +1,36 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import SignIn from "../pages/auth/SignIn";
-
 const Stack = createNativeStackNavigator();
+import AcessarApp from "../pages/auth/AcessarApp";
+import CadDispositivo from "../pages/auth/CadDispositivo";
+import { useTheme } from "styled-components/native";
 
 export default function AuthRoutes() {
+  const { colors } = useTheme();
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="SignIn" component={SignIn} />
+    <Stack.Navigator
+      initialRouteName="CadDispositivo"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.Primary,
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="AcessarApp"
+        component={AcessarApp}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CadDispositivo"
+        component={CadDispositivo}
+        options={{ headerTitle: "Configurações" }}
+      />
     </Stack.Navigator>
   );
 }

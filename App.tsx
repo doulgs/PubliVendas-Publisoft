@@ -13,7 +13,10 @@ import { PaperProvider } from "react-native-paper";
 
 import { AuthProvaider } from "./src/context/authContext";
 
+import { Inicializacao } from "./src/infra/command/Inicializacao";
+
 export default function App() {
+  Inicializacao();
   return (
     <ThemeProvider theme={THEME}>
       <NavigationContainer>

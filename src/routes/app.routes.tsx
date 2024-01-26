@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import { propsNavigationStack } from "./interface/app.stackType";
+import { useTheme } from "styled-components/native";
 
 const Stack = createNativeStackNavigator<propsNavigationStack>();
 import AdicionarPedido from "../pages/app/AdicionarPedido";
@@ -17,12 +18,18 @@ import ListaPedidos from "../pages/app/ListaPedidos";
 import ListaPessoas from "../pages/app/ListaPessoas";
 import ListaGrupo2 from "../pages/app/ListaGrupo2";
 
-import { useTheme } from "styled-components/native";
 import { CustomDrawer } from "./custom/CustomDrawer";
+import { Loading } from "../components/Loading";
 
 export default function AppRoutes() {
+  const { colors, colorBase } = useTheme();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: colorBase.White,
+        headerStyle: { backgroundColor: colors.Primary },
+      }}
+    >
       <Stack.Screen
         name="DrawerRoute"
         component={DrawerRoute}
@@ -35,7 +42,19 @@ export default function AppRoutes() {
       <Stack.Screen name="DetalheItem" component={DetalheItem} />
       <Stack.Screen name="DetalhePedido" component={DetalhePedido} />
       <Stack.Screen name="DetalhePessoa" component={DetalhePessoa} />
-      <Stack.Screen name="ListaItens" component={ListaItens} />
+      <Stack.Screen
+        name="ListaItens"
+        component={ListaItens}
+        options={{ headerTitle: "Itens" }}
+      />
+
+      <Stack.Screen
+        name="Loading"
+        component={Loading}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -53,7 +72,11 @@ function DrawerRoute() {
     >
       <Drawer.Screen name="ListaPedidos" component={ListaPedidos} />
       <Drawer.Screen name="ListaPessoas" component={ListaPessoas} />
-      <Drawer.Screen name="ListaGrupo2" component={ListaGrupo2} />
+      <Drawer.Screen
+        name="ListaGrupo2"
+        component={ListaGrupo2}
+        options={{ headerTitle: "Selecio o Grupo de Itens" }}
+      />
     </Drawer.Navigator>
   );
 }

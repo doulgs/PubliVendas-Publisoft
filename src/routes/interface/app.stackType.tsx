@@ -7,7 +7,9 @@ export type propsNavigationStack = {
   DetalheItem: undefined;
   DetalhePedido: undefined;
   DetalhePessoa: undefined;
-  ListaItens: undefined;
+  ListaItens: { handle: number };
+
+  Loading: undefined;
 };
 
 export type propsStack = NativeStackNavigationProp<propsNavigationStack>;

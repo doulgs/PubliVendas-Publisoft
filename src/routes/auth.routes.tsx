@@ -5,6 +5,7 @@ const Stack = createNativeStackNavigator();
 import AcessarApp from "../pages/auth/AcessarApp";
 import CadDispositivo from "../pages/auth/CadDispositivo";
 import { useTheme } from "styled-components/native";
+import { Loading } from "../components/Loading";
 
 export default function AuthRoutes() {
   const { colors } = useTheme();
@@ -30,6 +31,11 @@ export default function AuthRoutes() {
         name="CadDispositivo"
         component={CadDispositivo}
         options={{ headerTitle: "Configurações" }}
+      />
+      <Stack.Screen
+        name="Loading"
+        component={Loading}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

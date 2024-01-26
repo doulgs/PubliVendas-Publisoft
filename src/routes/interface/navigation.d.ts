@@ -10,6 +10,8 @@ export declare global {
       ListaItens: undefined;
       ListaPedidos: undefined;
       ListaPessoas: undefined;
+
+      Loading: undefined;
     }
   }
 }

@@ -6,7 +6,7 @@ const Inicializacao = async () => {
   try {
     const existingUser = realm
       .objects("UserSchema")
-      .filtered("Login = 'admin'");
+      .filtered("Login = 'publisoft'");
 
     if (existingUser.length === 0) {
       realm.write(() => {

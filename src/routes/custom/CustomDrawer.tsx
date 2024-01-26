@@ -9,7 +9,6 @@ import { Avatar, Title, Caption } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import { useAuth } from "../../context/authContext";
-import { dispararSync } from "../../helpers/functions/dispararSync";
 
 type CustomDrawerProps = DrawerContentComponentProps;
 
@@ -121,7 +120,8 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
             />
           )}
           label="Forçar Sync"
-          onPress={() => dispararSync()}
+          onPress={() => {}}
+          // onPress={() => dispararSync()}
         />
         <DrawerItem
           icon={({ color, size }) => (

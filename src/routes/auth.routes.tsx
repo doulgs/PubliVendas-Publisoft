@@ -10,7 +10,7 @@ export default function AuthRoutes() {
   const { colors } = useTheme();
   return (
     <Stack.Navigator
-      initialRouteName="CadDispositivo"
+      //initialRouteName="CadDispositivo"
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.Primary,

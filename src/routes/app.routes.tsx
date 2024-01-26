@@ -17,6 +17,9 @@ import ListaPedidos from "../pages/app/ListaPedidos";
 import ListaPessoas from "../pages/app/ListaPessoas";
 import ListaGrupo2 from "../pages/app/ListaGrupo2";
 
+import { useTheme } from "styled-components/native";
+import { CustomDrawer } from "./custom/CustomDrawer";
+
 export default function AppRoutes() {
   return (
     <Stack.Navigator>
@@ -38,8 +41,16 @@ export default function AppRoutes() {
 }
 
 function DrawerRoute() {
+  const { colors, colorBase } = useTheme();
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      initialRouteName="ListaPedidos"
+      drawerContent={(props) => <CustomDrawer {...props} />}
+      screenOptions={{
+        headerTintColor: colorBase.White,
+        headerStyle: { backgroundColor: colors.Primary },
+      }}
+    >
       <Drawer.Screen name="ListaPedidos" component={ListaPedidos} />
       <Drawer.Screen name="ListaPessoas" component={ListaPessoas} />
       <Drawer.Screen name="ListaGrupo2" component={ListaGrupo2} />

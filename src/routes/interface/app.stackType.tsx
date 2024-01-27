@@ -6,7 +6,7 @@ export type propsNavigationStack = {
   AdicionarPessoa: undefined;
   DetalheItem: undefined;
   DetalhePedido: undefined;
-  DetalhePessoa: undefined;
+  DetalhePessoa: { handle: number };
   ListaItens: { handle: number };
 
   Loading: undefined;

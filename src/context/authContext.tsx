@@ -1,4 +1,5 @@
 import { useState, useContext, createContext, useEffect } from "react";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { cadastrarDispositivoDB } from "../helpers/functions/cadastrarDispositivoDB";
 import { getRealm } from "../infra/realm";
 import { criptografarParaMD5 } from "../helpers/utils/criptografarParaMD5";
@@ -7,6 +8,7 @@ interface AuthContextProps {
   user: UserProps | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isConnectedInternet: boolean | null;
   acessar: Function;
   signOut: Function;
 
@@ -23,6 +25,10 @@ export const AuthContext = createContext<AuthContextProps>(
 );
 
 export const AuthProvaider = ({ children }: any) => {
+  const [isConnectedInternet, setIsConnectedInternet] = useState<
+    boolean | null
+  >(null);
+
   const [user, setUser] = useState<UserProps | null>(null);
   const [isLoading, setIsLoading] = useState<true | false>(false);
 
@@ -126,9 +132,22 @@ export const AuthProvaider = ({ children }: any) => {
     setUser(null);
   }
 
+  useEffect(() => {
+    const handleConnectivityChange = (state: NetInfoState) => {
+      console.log("Connection type", state.type);
+      console.log("Is connected?", state.isConnected);
+      setIsConnectedInternet(state.isConnected);
+    };
+    const unsubscribe = NetInfo.addEventListener(handleConnectivityChange);
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   return (
     <AuthContext.Provider
       value={{
+        isConnectedInternet,
         acessar,
         user,
         isAuthenticated: !!user,

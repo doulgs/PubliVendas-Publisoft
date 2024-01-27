@@ -4,8 +4,8 @@ import {
   DrawerContentScrollView,
   DrawerItem,
 } from "@react-navigation/drawer";
-import { View, StyleSheet, Linking, StatusBar } from "react-native";
-import { Avatar, Title, Caption } from "react-native-paper";
+import { View, StyleSheet, Linking, Text, StatusBar } from "react-native";
+import { Avatar, Title, Caption, Switch } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import { useAuth } from "../../context/authContext";
@@ -15,8 +15,8 @@ type CustomDrawerProps = DrawerContentComponentProps;
 const statusBarHeight = StatusBar.currentHeight;
 
 const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
-  const { colors } = useTheme();
-  const { user, signOut } = useAuth();
+  const { colors, colorBase } = useTheme();
+  const { user, signOut, isConnectedInternet } = useAuth();
   return (
     <View style={{ flex: 1, backgroundColor: colors.Primary }}>
       <DrawerContentScrollView style={styles.headerDrawerSection} {...props}>
@@ -95,6 +95,19 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
         </View>
       </DrawerContentScrollView>
 
+      <View style={styles.footerDrawerSection}>
+        <DrawerItem
+          icon={({ color, size }) => (
+            <MaterialCommunityIcons
+              name={isConnectedInternet ? "wifi" : "wifi-cancel"}
+              color={isConnectedInternet ? colorBase.Success : colorBase.Error}
+              size={size}
+            />
+          )}
+          label="Status de Conexão"
+          onPress={() => {}}
+        />
+      </View>
       <View style={styles.footerDrawerSection}>
         <DrawerItem
           icon={({ color, size }) => (

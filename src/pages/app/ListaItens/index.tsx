@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import { FlatList, Text, View } from "react-native";
 import { Container } from "./styles";
@@ -11,6 +11,7 @@ import { Loading } from "../../../components/Loading";
 import { Produto } from "../../../components/Produto";
 import { FlashList } from "@shopify/flash-list";
 import { ListaVazia } from "../../../components/ListaVazia";
+import { TextInput } from "react-native-paper";
 
 type ScreenProps = {
   handle: number;
@@ -19,6 +20,8 @@ type ScreenProps = {
 const ListaItens: React.FC = () => {
   const { handle } = useRoute().params as ScreenProps;
   const [itens, setItens] = useState<IntItem[]>([]);
+  const [buscarItens, setBuscarItens] = useState("");
+  const [resultadosBusca, setResultadosBusca] = useState<IntItem[]>([]);
   const [loading, setLoading] = useState(true); // Adiciona estado de carregamento
 
   useFocusEffect(
@@ -62,6 +65,19 @@ const ListaItens: React.FC = () => {
     }, [])
   );
 
+  useEffect(() => {
+    realizarBusca();
+  }, [buscarItens, itens]);
+
+  const realizarBusca = () => {
+    const resultados = itens.filter(
+      (item) =>
+        item.Descricao?.toLowerCase().includes(buscarItens.toLowerCase())
+      //TODO: implementar metodos de buscar alternativos ao NOME
+    );
+    setResultadosBusca(resultados);
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -76,12 +92,23 @@ const ListaItens: React.FC = () => {
   return (
     <>
       <FlashList
-        data={itens}
+        data={resultadosBusca.length > 0 ? resultadosBusca : itens}
         keyExtractor={(item) => item.Handle.toString()}
         renderItem={renderizarProduto}
         ListEmptyComponent={renderizarListaVazia}
         contentContainerStyle={{ padding: 8 }}
         estimatedItemSize={200}
+        ListHeaderComponent={
+          <TextInput
+            mode="outlined"
+            label="Pesquisar"
+            placeholder="Digite o nome do produto"
+            left={<TextInput.Icon icon="account-search-outline" />}
+            style={{ backgroundColor: "transparent", marginBottom: 16 }}
+            value={buscarItens}
+            onChangeText={(t) => setBuscarItens(t)}
+          />
+        }
       />
     </>
   );

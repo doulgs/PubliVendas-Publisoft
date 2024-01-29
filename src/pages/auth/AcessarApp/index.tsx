@@ -2,6 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button, ButtonText, Container, ContentInput, Input } from "./styles";
 import { useAuth } from "../../../context/authContext";
+import { useNavigation } from "@react-navigation/native";
 
 interface credenciaisProps {
   usuario: string;
@@ -10,10 +11,14 @@ interface credenciaisProps {
 
 const AcessarApp = () => {
   const { acessar } = useAuth();
+  const navigation = useNavigation();
   const { control, handleSubmit } = useForm<credenciaisProps>();
 
   const onSubmit = async (data: credenciaisProps) => {
     await acessar(data.usuario, data.senha);
+  };
+  const handleConfig = () => {
+    navigation.navigate("CadDispositivo");
   };
 
   return (
@@ -43,6 +48,10 @@ const AcessarApp = () => {
 
       <Button onPress={handleSubmit(onSubmit)}>
         <ButtonText>Acessar</ButtonText>
+      </Button>
+
+      <Button onPress={handleConfig}>
+        <ButtonText>Config</ButtonText>
       </Button>
     </Container>
   );

@@ -22,8 +22,7 @@ const Pessoa: React.FC<Props> = ({ data, ...rest }) => {
     ? data.Nome.toUpperCase().slice(0, 2)
     : "";
 
-  const syncColor =
-    data.HandleTrade !== null ? colorBase.Success : colorBase.Error;
+  const syncColor = data.Sync !== null ? colorBase.Success : colorBase.Error;
 
   return (
     <Card style={styles.card}>

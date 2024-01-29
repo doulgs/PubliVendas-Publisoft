@@ -43,6 +43,7 @@ async function syncPessoas() {
               HandleFilial: obj.HandleFilial,
               HandleTrade: obj.HandleTrade,
               Plataforma: obj.Plataforma,
+              Sync: true,
             },
             Realm.UpdateMode.Modified
           );

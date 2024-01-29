@@ -27,6 +27,7 @@ export interface IntPessoas {
   HandleFilial: number | null;
   HandleTrade: number | null;
   Plataforma: number | null;
+  Sync: boolean | null;
 }
 
 export type IntPessoasObject = IntPessoas & Realm.Object;

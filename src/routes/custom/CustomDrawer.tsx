@@ -48,6 +48,7 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
             </View>
 
             <View style={styles.drawerSection}>
+              <Text style={styles.menuTitleDrawer}>Menu Principal</Text>
               <DrawerItem
                 style={styles.itemMenuStyle}
                 icon={({ color, size }) => (
@@ -88,6 +89,38 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
                 label="Produtos"
                 onPress={() => {
                   props.navigation.navigate("ListaGrupo2");
+                }}
+              />
+            </View>
+
+            <View style={styles.drawerSection}>
+              <Text style={styles.menuTitleDrawer}>Menu de Ações</Text>
+              <DrawerItem
+                style={styles.itemMenuStyle}
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="clipboard-edit-outline"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Adiocionar Pedido"
+                onPress={() => {
+                  props.navigation.navigate("AdicionarPedido");
+                }}
+              />
+              <DrawerItem
+                style={styles.itemMenuStyle}
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="account-multiple"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Adicionar Pessoa"
+                onPress={() => {
+                  props.navigation.navigate("AdicionarPessoa");
                 }}
               />
             </View>
@@ -161,6 +194,11 @@ const styles = StyleSheet.create({
   bodyDrawerSection: {
     flex: 1,
     marginTop: -38,
+  },
+  menuTitleDrawer: {
+    padding: 16,
+    fontSize: 16,
+    fontWeight: "bold",
   },
   footerDrawerSection: {
     backgroundColor: "#f0f4ff",

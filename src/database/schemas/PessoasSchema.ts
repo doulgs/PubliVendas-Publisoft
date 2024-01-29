@@ -34,6 +34,7 @@ export const PessoasSchema: ObjectSchema = {
     HandleFilial: { type: "int", optional: true },
     HandleTrade: { type: "int", optional: true },
     Plataforma: { type: "int", optional: true },
+    Sync: { type: "bool", optional: true }, // Utilizada para controlar se o item criado ja foi registrado no banco da WEB
   },
 
   primaryKey: "Handle",

@@ -3,6 +3,8 @@ import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { cadastrarDispositivoDB } from "../helpers/functions/cadastrarDispositivoDB";
 import { getRealm } from "../infra/realm";
 import { criptografarParaMD5 } from "../helpers/utils/criptografarParaMD5";
+import { FormCadClienteProps, TipoCliente } from "../pages/app/AdicionarPessoa";
+import { gerarHandle } from "../helpers/utils/gerarHandle";
 
 interface AuthContextProps {
   user: UserProps | null;
@@ -13,6 +15,7 @@ interface AuthContextProps {
   signOut: Function;
 
   cadastrarDispositivo: Function;
+  cadastarPessoaDB: Function;
 }
 
 interface UserProps {
@@ -128,6 +131,41 @@ export const AuthProvaider = ({ children }: any) => {
     }
   }
 
+  async function cadastarPessoaDB(
+    dados: FormCadClienteProps,
+    tipoSelecionado: TipoCliente
+  ) {
+    setIsLoading(true);
+    const MyHandle = await gerarHandle("PessoasSchema");
+    const realm = await getRealm();
+    try {
+      realm.write(() => {
+        const createdPessoaRealm = realm.create("PessoasSchema", {
+          Handle: MyHandle,
+          Nome: dados?.Nome,
+          Fantasia: dados?.Fantasia,
+          CnpjCpf: dados?.CnpjCpf,
+          Insc: dados?.Insc,
+          Endereco: dados?.Endereco,
+          Numero: parseInt(dados?.Numero),
+          Bairro: dados?.Bairro,
+          Cep: dados?.CEP,
+          Cidade: dados?.Cidade,
+          Email: dados?.Email,
+          Telefone: dados?.Telefone,
+          Observacao: dados?.Observacao,
+          Uf: dados?.UF,
+          Tipo: tipoSelecionado,
+        });
+      });
+      console.log("Pessoa Registrada com sucesso");
+    } catch (error) {
+      console.log("Erro na criação do registro de Usuario -->", error);
+      setIsLoading(false);
+    }
+    setIsLoading(false);
+  }
+
   async function signOut() {
     setUser(null);
   }
@@ -152,6 +190,7 @@ export const AuthProvaider = ({ children }: any) => {
         user,
         isAuthenticated: !!user,
         isLoading,
+        cadastarPessoaDB,
         signOut,
 
         cadastrarDispositivo,
